@@ -1,20 +1,42 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthProvider';
 
 function SignIn() {
-  return (
-    <>
-      <h1>Inloggen</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id molestias qui quo unde?</p>
+    const navigate = useNavigate();
+    const authData = useContext(AuthContext);
+    const { login } = authData;
 
-      <form>
-        <p>*invoervelden*</p>
-        <button>Inloggen</button>
-      </form>
+    const handleSignIn = () => {
+        // Voer hier de logica uit om in te loggen
 
-      <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-    </>
-  );
+        // Als het inloggen succesvol is, roep de login-functie aan om isAuthenticated naar true te zetten
+        login();
+
+        // Navigeer naar de profielpagina na het inloggen
+        navigate('/profile');
+    };
+
+    return (
+        <>
+            <h1>Inloggen</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias cum debitis dolor dolore fuga id molestias
+                qui quo unde?
+            </p>
+
+            <form>
+                <p>*invoervelden*</p>
+                <button type="button" onClick={handleSignIn}>
+                    Inloggen
+                </button>
+            </form>
+
+            <p>
+                Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.
+            </p>
+        </>
+    );
 }
 
 export default SignIn;
